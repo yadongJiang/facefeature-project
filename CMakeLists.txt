@@ -32,12 +32,10 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 include_directories(
     ./Common
-    ./Common/math
     ./face_feature_me
 )
 
 list(APPEND SRC 
-    ./Common/math/split_channel.cu
     ./Common/kl_rt_onnx_base_v7.cpp
     ./Common/kl_syncedmem.cpp
     ./face_feature_me/kl_face_infer.cpp

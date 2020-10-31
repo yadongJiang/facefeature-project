@@ -1,6 +1,5 @@
 #include "face_extractor_rt.h"
 #include "kl_tensor_transform.hpp"
-#include "math/split_channel.h"
 #include <unistd.h>
 
 namespace klfaceme
