@@ -33,6 +33,8 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(
     ./Common
     ./face_feature_me
+    ./Common/onnx_base
+    ./face_feature_me_v2
 )
 
 list(APPEND SRC 
@@ -40,6 +42,9 @@ list(APPEND SRC
     ./Common/kl_syncedmem.cpp
     ./face_feature_me/kl_face_infer.cpp
     ./face_feature_me/face_extractor_rt.cpp
+    ./face_feature_me_v2/face_feature_v2_api.cpp
+    ./face_feature_me_v2/face_feature_v2.cpp
+    ./Common/onnx_base/onnx_dynamic_reshape_base_v1.cpp
     ./main.cpp
 )
 
