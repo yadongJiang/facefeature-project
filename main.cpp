@@ -1,13 +1,47 @@
 #include "face_feature_me/kl_face_infer.h"
 #include "face_feature_me_v2/face_feature_v2_api.h"
+#include "face_align/face_align_api.h"
 #include <vector>
 
 using namespace klfaceme;
 using namespace facefeature_v2;
+using namespace klface;
 
 int main()
 {
-    IFaceFeatureV2 *face_extract =new IFaceFeatureV2("./models/facefeature_me.onnx", "./models/serial/", 0);
+    //测试人脸对齐算法
+    IFaceAlign face_algin;
+
+    cv::Mat face = cv::imread("../example/10144262.jpg");
+    if (face.empty())
+        return 0;
+
+    cv::Mat face_t = face.clone();
+
+    std::vector<cv::Point> keypoints{cv::Point(133, 197), cv::Point(224, 196), cv::Point(181, 250), cv::Point(150, 308), cv::Point(217, 306)};
+    for(int i=0; i<5; i++)
+    {
+        if (i == 0)  // 左眼
+            cv::circle(face_t, keypoints[i], 2, cv::Scalar(255, 0, 0), 2);
+        if (i == 1)  // 右眼
+            cv::circle(face_t, keypoints[i], 2, cv::Scalar(0, 255, 0), 2);
+        if (i == 2)  // 鼻尖
+            cv::circle(face_t, keypoints[i], 2, cv::Scalar(0, 0, 255), 2);
+        if (i == 3)  // 左嘴角
+            cv::circle(face_t, keypoints[i], 2, cv::Scalar(255, 255, 0), 2);
+        if (i == 4)  // 右嘴角
+            cv::circle(face_t, keypoints[i], 2, cv::Scalar(0, 255, 255), 2);
+    }
+
+    cv::Mat align_face;
+    face_algin.Align(face, align_face, keypoints);
+
+    cv::imshow("face_t", face_t);
+    cv::imshow("face", face);
+    cv::imshow("align_face", align_face);
+    cv::waitKey();
+
+    /*IFaceFeatureV2 *face_extract =new IFaceFeatureV2("./models/facefeature_me.onnx", "./models/serial/", 0);
 
     {
         cv::Mat face = cv::imread("/media/administrator/00006784000048231/Jyd_c++/AlgoSDK/test_images/face_feature_test/10144262.jpg");
@@ -19,7 +53,7 @@ int main()
         {
             std::cout << cv::Mat(feat).t() << std::endl;
         }
-    }
+    }*/
 
     /*IKLFaceExtract face_extractor(
         "./models/faceFeature.onnx", 
