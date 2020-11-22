@@ -1,15 +1,30 @@
 #include "face_feature_me/kl_face_infer.h"
 #include "face_feature_me_v2/face_feature_v2_api.h"
 #include "face_align/face_align_api.h"
+#include "face_quality/face_quality_api.h"
 #include <vector>
 
 using namespace klfaceme;
 using namespace facefeature_v2;
 using namespace klface;
+using namespace face_quality;
 
 int main()
 {
-    //测试人脸对齐算法
+    // 测试人脸质量
+    IFaceQuality ifp("/media/administrator/00006784000048234/new_Projects/人脸质量/FaceQuality/FaceQuality.onnx", 
+                                      "./models/serial/", 0);
+
+    cv::Mat img = cv::imread("/media/administrator/00006784000048234/base_train_7.11_15/a_good/0_good_face__0_good_face__0_good_face__0_good_face__26931.0__0.7524_26931.0_.jpg");
+    std::vector<float> confidences;
+    ifp.Execute(img, confidences);
+    for(auto item:confidences)  // 输出人脸质量各个类别的得分(置信度)
+        std::cout<<item<<"   ";
+    std::cout<<std::endl;
+    cv::imshow("img", img);
+    cv::waitKey();
+
+    /*//测试人脸对齐算法
     IFaceAlign face_algin;
 
     cv::Mat face = cv::imread("../example/10144262.jpg");
@@ -39,7 +54,7 @@ int main()
     cv::imshow("face_t", face_t);
     cv::imshow("face", face);
     cv::imshow("align_face", align_face);
-    cv::waitKey();
+    cv::waitKey();*/
 
     /*IFaceFeatureV2 *face_extract =new IFaceFeatureV2("./models/facefeature_me.onnx", "./models/serial/", 0);
 

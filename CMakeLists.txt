@@ -36,6 +36,7 @@ include_directories(
     ./Common/onnx_base
     ./face_feature_me_v2
     ./face_align
+    ./face_quality
 )
 
 list(APPEND SRC 
@@ -49,6 +50,8 @@ list(APPEND SRC
     ./face_align/face_align_api.cpp
     ./face_align/kl_ali_infer.cpp
     ./face_align/kl_alignface.cpp
+    ./face_quality/face_quality_api.cpp
+    ./face_quality/face_quality.cpp
     ./main.cpp
 )
 
