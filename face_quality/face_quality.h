@@ -20,6 +20,7 @@ class FaceQuality : public KLRTOnnxBaseV7
 {
 public:
     FaceQuality(const InitParam &init_param);
+    FaceQuality(const std::string &model, int gpu_id);
     virtual ~FaceQuality() {};
 
 public:
@@ -35,8 +36,9 @@ private:
 private:
     InitParam init_param_;
 
-    std::vector<float> mean_ {0.485,0.456,0.406};
-	std::vector<float> std_ {0.229,0.224,0.225};
+    // std::vector<float> mean_ {0.406, 0.485, 0.456};
+	// std::vector<float> std_ {0.225, 0.229, 0.224};
+
 };
 
 }

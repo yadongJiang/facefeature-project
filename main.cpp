@@ -12,10 +12,10 @@ using namespace face_quality;
 int main()
 {
     // 测试人脸质量
-    IFaceQuality ifp("/media/administrator/00006784000048234/new_Projects/人脸质量/FaceQuality/FaceQuality.onnx", 
+    IFaceQuality ifp("/media/administrator/00006784000048231/new_Projects/人脸质量/project/face_quality.onnx", 
                                       "./models/serial/", 0);
 
-    cv::Mat img = cv::imread("/media/administrator/00006784000048234/base_train_7.11_15/a_good/0_good_face__0_good_face__0_good_face__0_good_face__26931.0__0.7524_26931.0_.jpg");
+    cv::Mat img = cv::imread("/media/administrator/00006784000048231/base_train_7.11_15/g_blur/0_25001.0__0.601_25001.0_.jpg");
     std::vector<float> confidences;
     ifp.Execute(img, confidences);
     for(auto item:confidences)  // 输出人脸质量各个类别的得分(置信度)

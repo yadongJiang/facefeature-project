@@ -31,7 +31,7 @@ IFaceQuality::IFaceQuality(const std::string &onnx, const std::string &gie_strea
     init_param.onnx_model = onnx;
     init_param.gie_stream_path = gie_stream_path;
     init_param.gpu_id = gpu_id;
-    init_param.rt_model_name = "multi_quality.gie";
+    init_param.rt_model_name = "face_quality.gie";
     up_impl_.reset(new Impl(init_param));
 }
 

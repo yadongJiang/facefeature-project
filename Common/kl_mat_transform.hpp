@@ -97,7 +97,6 @@ private:
     float constant_;
 };
 
-
 //转换颜色空间
 class MatCvtColor
 {

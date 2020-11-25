@@ -49,7 +49,6 @@ bool FaceQuality::Execute(const cv::Mat &img, std::vector<float> &confidences)
 
     KLTensorFloat output = outputs[0];
     int output_size = output.height();
-    // std::cout<<"ouput_size : "<<ouput_size<<std::endl;
     const float *cpu_data = output.cpu_data();
 
     std::vector<float> scores;
@@ -71,13 +70,12 @@ void FaceQuality::PreProcessCpu(const cv::Mat &img)
     Shape shape = input_shape();
 
     ComposeMatLambda compose_lambda({
-        MatResize(cv::Size(shape.width(), shape.height()), cv::INTER_CUBIC), 
-        MatCvtColor(cv::COLOR_BGR2RGB),                                      
+        MatResize(cv::Size(shape.width(), shape.height())), 
         MatDivConstant(255.), 
-		MatNormalize(mean_, std_, false)                          
     });
 
     cv::Mat sample_float = compose_lambda(img);
+    std::cout<<sample_float.size()<<std::endl;
 
     cv::split(sample_float, input_channels);
 }
@@ -87,7 +85,7 @@ void FaceQuality::PostProcessCpu(float *scores, float *confidences, int length)
     if(scores==NULL)
         return ;
     
-    float denominator{0};
+    float denominator{0.};
     for(int i=0; i<length; i++)
     {
         confidences[i] = std::exp(scores[i]);
